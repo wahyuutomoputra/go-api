@@ -42,8 +42,19 @@ func (handler *bookController) Create(c *gin.Context) {
 		return
 	}
 
+	data := Book{
+		Id:   1,
+		Name: create.Name,
+	}
+
+	ins, err := handler.bookService.Insert(data)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
 	c.JSON(http.StatusOK, gin.H{
 		"status": "sukses",
-		"nama":   create.Name,
+		"data":   ins,
 	})
 }
