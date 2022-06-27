@@ -34,3 +34,16 @@ func (handler *bookController) FindAll(c *gin.Context) {
 		"data": book,
 	})
 }
+
+func (handler *bookController) Create(c *gin.Context) {
+	var create CreateBook
+	if err := c.ShouldBindJSON(&create); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status": "sukses",
+		"nama":   create.Name,
+	})
+}

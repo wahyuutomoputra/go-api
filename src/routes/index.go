@@ -15,6 +15,7 @@ func bookRouter(r *gin.RouterGroup, db *gorm.DB) {
 	router := r.Group("/book")
 	{
 		router.GET("/findAll", bookController.FindAll)
+		router.POST("/create", bookController.Create)
 	}
 }
 
