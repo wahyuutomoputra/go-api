@@ -2,7 +2,7 @@ package main
 
 import (
 	"go-api/src/config"
-	"go-api/src/modules/book"
+	"go-api/src/routes"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,14 +15,9 @@ func main() {
 		panic("Failed to connect to database!")
 	}
 
-	bookRepository := book.NewRepositoryBook(db)
-	bookService := book.NewServiceBook(bookRepository)
-	bookController := book.NewBookController(bookService)
-
-	v1 := router.Group("/v1")
+	r := router.Group("/v1")
 	{
-		v1.GET("/status", bookController.Status)
-		v1.GET("/findAll", bookController.FindAll)
+		routes.AddRoutes(r, db)
 	}
 
 	router.Run(":8081")
