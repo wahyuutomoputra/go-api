@@ -1,6 +1,7 @@
 package book
 
 import (
+	"go-api/src/helper"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -15,9 +16,7 @@ func NewBookController(bookService BookService) *bookController {
 }
 
 func (handler *bookController) Status(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"status": "OK",
-	})
+	c.JSON(http.StatusOK, helper.ApiResponse(http.StatusOK, "success", nil))
 }
 
 func (handler *bookController) FindAll(c *gin.Context) {
